@@ -1,11 +1,101 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>Akash</h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookstore</title>
+  <style>
+    /* public/styles.css */
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .api-list {
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .get-api {
+      background-color: #dff0d8;
+      /* Green */
+    }
+
+    .post-api {
+      background-color: #d9edf7;
+      /* Blue */
+    }
+
+    .patch-api {
+      background-color: #fcf8e3;
+      /* Yellow */
+    }
+
+    .delete-api {
+      background-color: #f2dede;
+      /* Red */
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    .badge {
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: #666;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="heading">Bookstore</h1>
+    <div class="api-list">
+      <h2>API Endpoints:</h2>
+      <ul>
+        <li class="get-api"><strong>GET <span class="badge">/books</span></strong> - Get all books</li>
+        <li class="get-api"><strong>GET <span class="badge">/books/:id</span></strong> - Get a book by ID</li>
+        <li class="post-api"><strong>POST <span class="badge">/books/add</span></strong> - Add a new book</li>
+        <li class="patch-api"><strong>PATCH <span class="badge">/books/add/:id</span></strong> - Update a book by ID
+        </li>
+        <li class="delete-api"><strong>DELETE <span class="badge">/books/:id</span></strong> - Delete a book by ID</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
 </html>
