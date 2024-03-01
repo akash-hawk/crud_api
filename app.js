@@ -1,46 +1,42 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// server.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const booksRouter = require('./routes/book');
+const Book = require('./models/book');
+const { sampleBooks } = require('./data/booksData');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
+const PORT = process.env.PORT || 3000;
+app.use(bodyParser.json());
 
-const { connectToDB } = require('./db');
+const uri = "mongodb+srv://akashgoindi:sbSHOVzOhXE7em1O@backenddev.oo87oek.mongodb.net/?retryWrites=true&w=majority&appName=BackendDev";
 
-var app = express();
+// async function addSampleData() {
+//     try {
+//         await Book.deleteMany();
+//         await Book.insertMany(sampleBooks);
+//         console.log('Sample data added successfully');
+//     } catch (err) {
+//         console.error('Error adding sample data:', err);
+//     }
+// }
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// MongoDB Connection
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => {
+    console.log('MongoDB Connected');
+    // addSampleData();
+}).catch(err => console.error('MongoDB Connection Error:', err));
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// Define Routes
+// For example, you can define routes for CRUD operations on books
 
+app.use('/books', booksRouter);
 
-connectToDB().catch(console.dir);
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
